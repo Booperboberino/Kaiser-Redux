@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
 
     public Tilemap worldTilemap;
     public Tile whiteTile;
-    public Texture2D physicalMapTexture;
+    // public Texture2D physicalMapTexture;
     public GameObject debugStick;
 
 
@@ -45,8 +45,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log((selectionStartScreenSpace - new Vector2(Input.mousePosition.x, Input.mousePosition.y)).magnitude);
-            if ((selectionStart - Input.mousePosition).magnitude > 40)
+            if ((selectionStartScreenSpace - new Vector2(Input.mousePosition.x, Input.mousePosition.y)).magnitude > 40)
             {
                 IsDragging = true;
                 selectionManager.UpdateSelectionBox(selectionStart, currentWorldMousePosition);
@@ -70,7 +69,8 @@ public class InputHandler : MonoBehaviour
                 // If we ARE holding shift
                 {
                     selectionManager.SelectTielsInSelectionBox(selectionStart, currentWorldMousePosition);
-                }                
+                }
+                IsDragging = false;          
                 
             }
             
@@ -104,20 +104,8 @@ public class InputHandler : MonoBehaviour
                         // Add current tile to selection
                         selectionManager.AddToSelection(gridManager.GetCellFromPosition(currentWorldMousePosition));
                     }
-
                 }
-
             }
-
-
         }
-
-
     }
-
-
-
-
 }
-
-

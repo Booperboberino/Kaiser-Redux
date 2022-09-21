@@ -27,12 +27,31 @@ public class GridManager : MonoBehaviour
 
     public bool isLand(Vector3 position)
     {
+
+        Debug.Log("Evaluating tile at " + position + " with color: " + GetColorFromPosition(position));
+        
         if (GetColorFromPosition(position).a != 0)
         {
+            Debug.Log("Cell is land!");
             return true;
         }
         else
         {
+            Debug.Log("Cell is not land...");
+            return false;
+        }
+    }
+    public bool isLand(Vector3Int position)
+    {
+        Debug.Log("Evaluating tile at " + position + " with color: " + GetColorFromCell(position));
+        if (GetColorFromCell(position).a != 0)
+        {
+            Debug.Log("Cell is land!");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Cell is not land...");
             return false;
         }
     }
@@ -49,10 +68,10 @@ public class GridManager : MonoBehaviour
     public void DeleteTile(Vector3Int position, Tilemap tilemap)
     {
         tilemap.SetTile(position, null);
-        Debug.Log("Deleted tile");
     }
     public void DeleteTile(Vector3Int position)
     {
+        // Default tilemap is selection tile map
         worldTilemap.SetTile(position, null);
     }
 

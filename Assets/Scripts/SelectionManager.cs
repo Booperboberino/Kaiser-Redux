@@ -41,7 +41,12 @@ public class SelectionManager : MonoBehaviour
     {
         foreach (Vector3Int cell in targetCells)
         {
-            selectedGridSquares.Add(cell);
+
+            if (gridManager.isLand(cell))
+            {
+                selectedGridSquares.Add(cell);
+            }
+            
         }
         CreateSelectionVisual();
     }
