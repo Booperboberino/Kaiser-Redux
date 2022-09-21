@@ -42,6 +42,8 @@
      <Compile Include="Assets\RTS_Camera\Demo\TargetSelector.cs" />
      <Compile Include="Assets\RTS_Camera\Scripts\RTS_Camera.cs" />
      <Compile Include="Assets\Scripts\ColorToPrefab.cs" />
+     <Compile Include="Assets\Scripts\UIManager.cs" />
+     <Compile Include="Assets\Scripts\GridManager.cs" />
      <Compile Include="Assets\Scripts\SelectionManager.cs" />
      <None Include="Assets\RTS_Camera\Demo\Projectors\Shaders\ProjectorLight.shader" />
      <None Include="Assets\RTS_Camera\Demo\Projectors\Shaders\ProjectorMultiply.shader" />

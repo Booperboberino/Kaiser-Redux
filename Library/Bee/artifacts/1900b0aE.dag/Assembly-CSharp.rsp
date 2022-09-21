@@ -362,9 +362,11 @@
 "Assets/RTS_Camera/Demo/TargetSelector.cs"
 "Assets/RTS_Camera/Scripts/RTS_Camera.cs"
 "Assets/Scripts/ColorToPrefab.cs"
+"Assets/Scripts/GridManager.cs"
 "Assets/Scripts/InputHandler.cs"
 "Assets/Scripts/MapBuilder.cs"
 "Assets/Scripts/SelectionManager.cs"
+"Assets/Scripts/UIManager.cs"
 -langversion:9.0
 
 /deterministic
