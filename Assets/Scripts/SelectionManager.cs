@@ -48,7 +48,6 @@ public class SelectionManager : MonoBehaviour
 
     public void ClearSelection()
     {
-        Debug.Log(selectedGridSquares.Count);
         foreach(Vector3Int selected in selectedGridSquares)
         {
             gridManager.DeleteTile(selected, worldTilemap);
@@ -89,8 +88,10 @@ public class SelectionManager : MonoBehaviour
         
 
         // voodo shit, aka ui management
-        selectionSizeDelta = new Vector3(Mathf.Abs(width), Mathf.Abs(height),0);
-        selectionAnchoredPosition = startPosition + new Vector3(width / 2, height / 2,1);
+        selectionSizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
+        selectionAnchoredPosition = new Vector2(startPosition.x, startPosition.y) + new Vector2(width / 2, height / 2);
+
+        uiManager.UpdateSelectionBox(startPosition, endPosition);
 
         // uiManager.UpdateSelectionBox(new Vector2[] {selectionSizeDelta, selectionAnchoredPosition});
         // SelectSelectablesInBox();
@@ -98,6 +99,9 @@ public class SelectionManager : MonoBehaviour
     public void SelectTielsInSelectionBox(Vector3 startPosition, Vector3 endPosition)
     {
         AddToSelection(gridManager.ReturnTilesInRange(startPosition,endPosition));
+        
+        // Remove UI selection box
+        uiManager.clearSelectionBox();
     }
     
 

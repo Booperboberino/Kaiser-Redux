@@ -65,9 +65,9 @@ public class GridManager : MonoBehaviour
         int deltaX = startCell.x-endCell.x;
         int deltaY = startCell.y-endCell.y;
 
-        Debug.Log("Selecting range that is of size: " + deltaX + ", " + deltaY);
-        Debug.Log("start " + startCell);
-        Debug.Log("end: " + endCell);
+        // Debug.Log("Selecting range that is of size: " + deltaX + ", " + deltaY);
+        // Debug.Log("start " + startCell);
+        // Debug.Log("end: " + endCell);
 
         for (int currentYValue = 0; currentYValue < Mathf.Abs(deltaY); currentYValue++)
         {

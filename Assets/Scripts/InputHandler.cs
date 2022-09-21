@@ -15,6 +15,7 @@ public class InputHandler : MonoBehaviour
 
 
     private Vector3 selectionStart;
+    private Vector2 selectionStartScreenSpace;
     private bool IsDragging = false;
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class InputHandler : MonoBehaviour
         {
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             selectionStart = currentWorldMousePosition;
+            selectionStartScreenSpace = Input.mousePosition;
 
             // If we are NOT holding shift:
             if (!Input.GetKey(KeyCode.LeftShift))
@@ -43,11 +45,11 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (gridManager.GetCellFromPosition(selectionStart) != gridManager.GetCellFromPosition(currentWorldMousePosition))
+            Debug.Log((selectionStartScreenSpace - new Vector2(Input.mousePosition.x, Input.mousePosition.y)).magnitude);
+            if ((selectionStart - Input.mousePosition).magnitude > 40)
             {
                 IsDragging = true;
                 selectionManager.UpdateSelectionBox(selectionStart, currentWorldMousePosition);
-                
             }
         }
         // Mouse UP
@@ -68,9 +70,7 @@ public class InputHandler : MonoBehaviour
                 // If we ARE holding shift
                 {
                     selectionManager.SelectTielsInSelectionBox(selectionStart, currentWorldMousePosition);
-
-                }
-                
+                }                
                 
             }
             
