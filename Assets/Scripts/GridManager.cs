@@ -8,6 +8,12 @@ public class GridManager : MonoBehaviour
     public Tilemap worldTilemap;
     public Texture2D physicalMapTexture;
     public SelectionManager selectionManager;
+    Color[] pixels;
+
+    void Start()
+    {
+        pixels = physicalMapTexture.GetPixels();
+    }
 
     public Vector3Int GetCellFromPosition(Vector3 position)
     {
@@ -16,7 +22,8 @@ public class GridManager : MonoBehaviour
 
     public Color GetColorFromCell(Vector3Int currentCell)
     {
-        return physicalMapTexture.GetPixel(currentCell.x + 1, currentCell.y + 1);
+        Color returnValue = pixels[(currentCell.x+1) + (currentCell.y+1) * physicalMapTexture.width];
+        return returnValue;
     }
 
     public Color GetColorFromPosition(Vector3 position)
@@ -28,30 +35,24 @@ public class GridManager : MonoBehaviour
     public bool isLand(Vector3 position)
     {
 
-        Debug.Log("Evaluating tile at " + position + " with color: " + GetColorFromPosition(position));
         
         if (GetColorFromPosition(position).a != 0)
         {
-            Debug.Log("Cell is land!");
             return true;
         }
         else
         {
-            Debug.Log("Cell is not land...");
             return false;
         }
     }
     public bool isLand(Vector3Int position)
     {
-        Debug.Log("Evaluating tile at " + position + " with color: " + GetColorFromCell(position));
         if (GetColorFromCell(position).a != 0)
         {
-            Debug.Log("Cell is land!");
             return true;
         }
         else
         {
-            Debug.Log("Cell is not land...");
             return false;
         }
     }
