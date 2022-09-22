@@ -7,10 +7,6 @@ public class InputHandler : MonoBehaviour
 {
     public SelectionManager selectionManager;
     public GridManager gridManager;
-
-    public Tilemap worldTilemap;
-    public Tile whiteTile;
-    // public Texture2D physicalMapTexture;
     public GameObject debugStick;
 
 
