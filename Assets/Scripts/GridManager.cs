@@ -23,8 +23,7 @@ public class GridManager : MonoBehaviour
         pixelsEast = physicalMapTextureEast.GetPixels();
 
         // Construct datamaps
-        physicalMap = new DataMap(physicalMapTexture);
-
+        physicalMap = new DataMap(physicalMapTextureWest, physicalMapTextureEast);
         
         
 
@@ -36,7 +35,7 @@ public class GridManager : MonoBehaviour
     public MapTile GetTile(int x, int y)
     {
         // MapTile generation 
-
+        Debug.Log(physicalMap);
         bool isLand = physicalMap.GetColor(x, y).a != 0;
         return new MapTile(x, y, isLand);
     }

@@ -23,13 +23,12 @@ public class SelectionManager : MonoBehaviour
     }
 
 
-    public void SelectOneSquare(Vector3Int targetCell)
+    public void SelectOneSquare(MapTile tile)
     {
         
         ClearSelection();
-        selectedGridSquares.Add(targetCell);
+        selectedGridSquares.Add(new Vector3Int(tile.x, tile.y));
         CreateSelectionVisual();
-        
     }
 
     public void AddToSelection(Vector3Int targetCell)
@@ -101,7 +100,7 @@ public class SelectionManager : MonoBehaviour
         // uiManager.UpdateSelectionBox(new Vector2[] {selectionSizeDelta, selectionAnchoredPosition});
         // SelectSelectablesInBox();
     }
-    public void SelectTielsInSelectionBox(Vector3 startPosition, Vector3 endPosition)
+    public void SelectTilesInSelectionBox(Vector3 startPosition, Vector3 endPosition)
     {
         AddToSelection(gridManager.ReturnTilesInRange(startPosition,endPosition));
         
