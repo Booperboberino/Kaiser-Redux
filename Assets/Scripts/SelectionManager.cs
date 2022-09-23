@@ -14,7 +14,7 @@ public class SelectionManager : MonoBehaviour
     private Vector2 selectionSizeDelta;
     private Vector2 selectionAnchoredPosition;
 
-    List<Vector3Int> selectedGridSquares = new List<Vector3Int>();
+    List<MapTile> selectedGridSquares = new List<MapTile>();
 
     // Start is called before the first frame update
     void Start()
@@ -27,21 +27,21 @@ public class SelectionManager : MonoBehaviour
     {
         
         ClearSelection();
-        selectedGridSquares.Add(new Vector3Int(tile.x, tile.y));
+        selectedGridSquares.Add(tile);
         CreateSelectionVisual();
     }
 
-    public void AddToSelection(Vector3Int targetCell)
+    public void AddToSelection(MapTile tile)
     {
-        selectedGridSquares.Add(targetCell);
+        selectedGridSquares.Add(tile);
         CreateSelectionVisual();
     }
-    public void AddToSelection(List<Vector3Int> targetCells)
+    public void AddToSelection(List<MapTile> targetCells)
     {
-        foreach (Vector3Int cell in targetCells)
+        foreach (MapTile cell in targetCells)
         {
 
-            if (gridManager.isLand(cell))
+            if (cell.isLand)
             {
                 selectedGridSquares.Add(cell);
             }
@@ -52,14 +52,14 @@ public class SelectionManager : MonoBehaviour
 
     public void ClearSelection()
     {
-        foreach(Vector3Int selected in selectedGridSquares)
+        foreach(MapTile selected in selectedGridSquares)
         {
-            gridManager.DeleteTile(selected, worldTilemap);
+            gridManager.DeleteTile(new Vector3Int(selected.x, selected.y), worldTilemap);
         }
         selectedGridSquares.Clear();
     }
 
-    public List<Vector3Int> GetSelectedSquares()
+    public List<MapTile> GetSelectedSquares()
     {
         return selectedGridSquares;
     }
@@ -71,16 +71,16 @@ public class SelectionManager : MonoBehaviour
 
     public void CreateSelectionVisual()
     {
-        foreach(Vector3Int selected in selectedGridSquares)
+        foreach(MapTile selected in selectedGridSquares)
         {
-            gridManager.CreateTile(selected, selectionTile, worldTilemap);
+            gridManager.CreateTile(new Vector3Int(selected.x, selected.y), selectionTile, worldTilemap);
         }
     }
     public void ClearSelectionVisual()
     {
-        foreach(Vector3Int selected in selectedGridSquares)
+        foreach(MapTile selected in selectedGridSquares)
         {
-            gridManager.DeleteTile(selected,worldTilemap);
+            gridManager.DeleteTile(new Vector3Int(selected.x, selected.y),worldTilemap);
         }
     }
 
