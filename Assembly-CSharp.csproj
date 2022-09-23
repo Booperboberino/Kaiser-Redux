@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Classes\DataMap.cs" />
      <Compile Include="Assets\Scripts\Classes\MapTile.cs" />
      <Compile Include="Assets\Scripts\Classes\Country.cs" />
+     <Compile Include="Assets\Scripts\Monobehaviors\CountryManager.cs" />
      <None Include="Assets\RTS_Camera\Demo\Projectors\Shaders\ProjectorLight.shader" />
      <None Include="Assets\RTS_Camera\Demo\Projectors\Shaders\ProjectorMultiply.shader" />
      <None Include="Assets\RTS_Camera\Demo\Projectors\Guidelines.txt" />

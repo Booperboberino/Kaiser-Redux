@@ -43,12 +43,10 @@ public class DataMap
             if (x < dataMapTextureWest.width - 1)
             {
                 returnValue = pixelsWest[(x + 1) + (y + 1) * dataMapTextureWest.width];
-                Debug.Log("Got color: " + returnValue + " at Western map");
             }
             else
             {
                 returnValue = pixelsEast[(x + 1 - dataMapTextureEast.width) + (y + 1) * dataMapTextureEast.width];
-                Debug.Log("Got color: " + returnValue + " at eastern map");
             }
 
 

@@ -5,9 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class InputHandler : MonoBehaviour
 {
+    [Header("Managers:")]
     public SelectionManager selectionManager;
     public GridManager gridManager;
+    public CountryManager countryManager;
+
+    [Header("GameObjects:")]
     public GameObject debugStick;
+
 
 
     private Vector3 selectionStart;
@@ -31,13 +36,15 @@ public class InputHandler : MonoBehaviour
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             selectionStart = currentWorldMousePosition;
             selectionStartScreenSpace = Input.mousePosition;
-            
+
 
             // If we are NOT holding shift:
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 selectionManager.ClearSelection();
             }
+
+
         }
         if (Input.GetMouseButton(0))
         {
@@ -49,7 +56,7 @@ public class InputHandler : MonoBehaviour
             }
         }
         // Mouse UP
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
 
 
@@ -61,7 +68,7 @@ public class InputHandler : MonoBehaviour
             MapTile clickedTile = gridManager.GetTile(cell.x, cell.y);
 
             // If we ARE dragging:
-            if(IsDragging)
+            if (IsDragging)
             {
                 // If we are NOT holding shift
                 if (!Input.GetKey(KeyCode.LeftShift))
@@ -73,40 +80,44 @@ public class InputHandler : MonoBehaviour
                 {
                     selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
                 }
-                IsDragging = false;          
-                
+                IsDragging = false;
+
             }
-            
+
             //If we are NOT dragging:
             else
             {
 
-                
-                // If we are NOT holding shift:
-                if (!Input.GetKey(KeyCode.LeftShift))
-                {
-                    // If selection is land on physical map
-                    if (clickedTile.isLand)
-                    {
-                        // Select only one square
-                        selectionManager.SelectOneSquare(clickedTile);
-                    }
-                    // If selection is not land
-                    else
-                    {
-                        // Clear selection
-                        selectionManager.ClearSelection();
-                    }
 
-                }
-                // If we ARE holding shift:
-                else
+                // If we ARE holding SHIFT:
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
                     // If selection is land on physical map
                     if (clickedTile.isLand)
                     {
                         // Add current tile to selection
                         selectionManager.AddToSelection(clickedTile);
+                    }
+                }
+                // If we ARE holding CONTROL:
+                // DEBUG INTERACTION
+                else if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    countryManager.AddTileToCountryDebug(clickedTile);
+                    Debug.Log(countryManager.countries["Britain"].ownedTiles.Count);
+                }
+                // If we are holding NOTHING:
+                else
+                {
+                    // If selection is land on physical map
+                    if (clickedTile.isLand)
+                    {
+                        selectionManager.SelectOneSquare(clickedTile);
+                    }
+                    // If selection is not land
+                    else
+                    {
+                        selectionManager.ClearSelection();
                     }
                 }
             }

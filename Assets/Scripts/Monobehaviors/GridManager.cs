@@ -5,22 +5,26 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
-    public Tilemap worldTilemap;
+    
+
+    [Header("Map Textures")]
     public Texture2D physicalMapTexture;
     public Texture2D physicalMapTextureWest;
     public Texture2D physicalMapTextureEast;
+
+
+    [Header("Managers:")]
     public SelectionManager selectionManager;
 
-    public Color[] pixelsWest;
-    public Color[] pixelsEast;
+    [Header("Others:")]
+    public Tilemap worldTilemap;
+
 
     public DataMap physicalMap;
 
     void Start()
     {
-        
-        pixelsWest = physicalMapTextureWest.GetPixels();
-        pixelsEast = physicalMapTextureEast.GetPixels();
+
 
         // Construct datamaps
         physicalMap = new DataMap(physicalMapTextureWest, physicalMapTextureEast);

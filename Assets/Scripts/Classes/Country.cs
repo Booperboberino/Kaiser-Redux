@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Country
 {
-    List<MapTile> ownedTiles;
-    List<MapTile> claimedTiles;
     public string countryName;
     public Color mapColor;
+    public List<MapTile> ownedTiles;
+    public List<MapTile> claimedTiles;
+    
 
     public Country(string countryName, Color mapColor)
     {
