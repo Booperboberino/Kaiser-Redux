@@ -16,9 +16,13 @@ public class GridManager : MonoBehaviour
     [Header("Managers:")]
     public SelectionManager selectionManager;
 
-    [Header("Others:")]
+    [Header("Tilemaps:")]
     public Tilemap worldTilemap;
+    public Tilemap countryTilemap;
 
+    [Header("Tiles:")]
+
+    public Tile countryTile;
 
     public DataMap physicalMap;
 
@@ -35,9 +39,12 @@ public class GridManager : MonoBehaviour
 
     public MapTile GetTile(int x, int y)
     {
-        // MapTile generation 
+        // MapTile generation, please keep chronological 
         bool isLand = physicalMap.GetColor(x, y).a != 0;
-        return new MapTile(x, y, isLand);
+        Country ownedCountry = null;
+
+        // return value
+        return new MapTile(x, y, isLand, ownedCountry);
     }
 
 
@@ -46,14 +53,23 @@ public class GridManager : MonoBehaviour
         return worldTilemap.WorldToCell(position);
     }
 
-    public void CreateTile(Vector3Int position, Tile tile, Tilemap tilemap)
+    public void CreateSelectionTile(Vector3Int position, Tile tile, Tilemap tilemap)
     {
         tilemap.SetTile(position, tile);
     }
-    public void CreateTile(Vector3Int position, Tile tile)
+    public void CreateSelectionTile(Vector3Int position, Tile tile)
     {
         worldTilemap.SetTile(position, tile);
     }
+
+    
+    public void CreateCountryTile(Vector3Int position, Color color)
+    {
+        countryTile.color = color;
+        countryTilemap.SetTile(position, countryTile);
+    }
+   
+
 
     public void DeleteTile(Vector3Int position, Tilemap tilemap)
     {

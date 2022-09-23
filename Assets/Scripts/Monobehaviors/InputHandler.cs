@@ -46,6 +46,8 @@ public class InputHandler : MonoBehaviour
 
 
         }
+
+        // Mouse HELD DOWN
         if (Input.GetMouseButton(0))
         {
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -55,6 +57,7 @@ public class InputHandler : MonoBehaviour
                 selectionManager.UpdateSelectionBox(selectionStart, currentWorldMousePosition);
             }
         }
+
         // Mouse UP
         if (Input.GetMouseButtonUp(0))
         {
@@ -71,13 +74,24 @@ public class InputHandler : MonoBehaviour
             if (IsDragging)
             {
                 // If we are NOT holding shift
-                if (!Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
+
+                }
+                else if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    foreach (MapTile tile in gridManager.ReturnTilesInRange(selectionStart, currentWorldMousePosition))
+                    {
+                        if (tile.isLand)
+                        {
+                            countryManager.AddTileToCountryDebug(tile);
+                        }
+                    }
+                }
+                // If we holding NOTHING
                 {
                     selectionManager.ClearSelection();
-                    selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
-                }
-                // If we ARE holding shift
-                {
                     selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
                 }
                 IsDragging = false;
@@ -121,6 +135,10 @@ public class InputHandler : MonoBehaviour
                     }
                 }
             }
+        }
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            countryManager.ReloadTileMapVisual();
         }
     }
 }

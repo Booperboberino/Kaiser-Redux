@@ -73,7 +73,7 @@ public class SelectionManager : MonoBehaviour
     {
         foreach(MapTile selected in selectedGridSquares)
         {
-            gridManager.CreateTile(new Vector3Int(selected.x, selected.y), selectionTile, worldTilemap);
+            gridManager.CreateSelectionTile(new Vector3Int(selected.x, selected.y), selectionTile, worldTilemap);
         }
     }
     public void ClearSelectionVisual()
