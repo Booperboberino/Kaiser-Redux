@@ -14,11 +14,16 @@ public class GridManager : MonoBehaviour
     public Color[] pixelsWest;
     public Color[] pixelsEast;
 
+    public DataMap physicalMap;
+
     void Start()
     {
+        
         pixelsWest = physicalMapTextureWest.GetPixels();
         pixelsEast = physicalMapTextureEast.GetPixels();
 
+        // Construct datamaps
+        physicalMap = new DataMap(physicalMapTexture);
 
         
         
@@ -26,6 +31,16 @@ public class GridManager : MonoBehaviour
 
 
     }
+
+
+    public MapTile GetTile(int x, int y)
+    {
+        // MapTile generation 
+
+        bool isLand = physicalMap.GetColor(x, y).a != 0;
+        return new MapTile(x, y, isLand);
+    }
+
 
     public Vector3Int GetCellFromPosition(Vector3 position)
     {
@@ -41,13 +56,11 @@ public class GridManager : MonoBehaviour
         {
             returnValue = pixelsWest[(currentCell.x + 1) + (currentCell.y + 1) * physicalMapTextureWest.width];
             Debug.Log("Got color: " + returnValue + " at Western map");
-
         }
         else
         {
             returnValue = pixelsEast[(currentCell.x + 1 - physicalMapTextureWest.width) + (currentCell.y + 1) * physicalMapTextureEast.width];
             Debug.Log("Got color: " + returnValue + " at eastern map");
-
         }
         return returnValue;
     }
@@ -74,7 +87,7 @@ public class GridManager : MonoBehaviour
         return GetColorFromCell(GetCellFromPosition(position));
     }
 
-
+    // TODO: remove
     public bool isLand(Vector3 position)
     {
 
@@ -88,6 +101,8 @@ public class GridManager : MonoBehaviour
             return false;
         }
     }
+
+
     public bool isLand(Vector3Int position)
     {
         if (GetColorFromCell(position).a != 0)

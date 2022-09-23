@@ -5,16 +5,25 @@ using UnityEngine;
 public class DataMap 
 {
 
-    public Texture2D physicalMapTexture;
+    public Texture2D dataMapTexture;
 
-
-
-    public DataMap(Texture2D physicalMapTexture)
+    public Color[] pixels;
+    public DataMap(Texture2D texture)
     {
-        this.physicalMapTexture = physicalMapTexture;
+        
+        this.dataMapTexture = texture;
+
+        pixels = dataMapTexture.GetPixels();
     }
 
+    public Color GetColor(Vector3Int currentCell)
+    {
+        return pixels[(currentCell.x + 1) + (currentCell.y + 1) * dataMapTexture.width];
+    }
+    public Color GetColor(int x , int y)
+    {
 
-
+        return pixels[(x + 1) + (y + 1) * dataMapTexture.width];
+    }
 
 }
