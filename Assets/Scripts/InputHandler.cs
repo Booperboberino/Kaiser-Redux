@@ -31,6 +31,7 @@ public class InputHandler : MonoBehaviour
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             selectionStart = currentWorldMousePosition;
             selectionStartScreenSpace = Input.mousePosition;
+            
 
             // If we are NOT holding shift:
             if (!Input.GetKey(KeyCode.LeftShift))
@@ -50,9 +51,15 @@ public class InputHandler : MonoBehaviour
         // Mouse UP
         if(Input.GetMouseButtonUp(0))
         {
-            // Get position
+
+
+            // Get position in world
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
+            // Get cell clicked on
+            Vector3Int cell = gridManager.GetCellFromPosition(currentWorldMousePosition);
+            // Get MapTile from clicked cell 
+            MapTile clickedTile = gridManager.GetTile(cell.x, cell.y);
+
             // If we ARE dragging:
             if(IsDragging)
             {
@@ -60,11 +67,11 @@ public class InputHandler : MonoBehaviour
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     selectionManager.ClearSelection();
-                    selectionManager.SelectTielsInSelectionBox(selectionStart, currentWorldMousePosition);
+                    selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
                 }
                 // If we ARE holding shift
                 {
-                    selectionManager.SelectTielsInSelectionBox(selectionStart, currentWorldMousePosition);
+                    selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
                 }
                 IsDragging = false;          
                 
@@ -73,15 +80,16 @@ public class InputHandler : MonoBehaviour
             //If we are NOT dragging:
             else
             {
+
+                
                 // If we are NOT holding shift:
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     // If selection is land on physical map
-                    if (gridManager.isLand(currentWorldMousePosition))
+                    if (clickedTile.isLand)
                     {
                         // Select only one square
-                        selectionManager.SelectOneSquare(gridManager.GetCellFromPosition(currentWorldMousePosition));
-
+                        selectionManager.SelectOneSquare(clickedTile);
                     }
                     // If selection is not land
                     else
@@ -95,10 +103,10 @@ public class InputHandler : MonoBehaviour
                 else
                 {
                     // If selection is land on physical map
-                    if (gridManager.isLand(currentWorldMousePosition))
+                    if (clickedTile.isLand)
                     {
                         // Add current tile to selection
-                        selectionManager.AddToSelection(gridManager.GetCellFromPosition(currentWorldMousePosition));
+                        selectionManager.AddToSelection(clickedTile);
                     }
                 }
             }
