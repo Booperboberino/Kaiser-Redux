@@ -7,12 +7,24 @@ public class GridManager : MonoBehaviour
 {
     public Tilemap worldTilemap;
     public Texture2D physicalMapTexture;
+    public Texture2D physicalMapTextureWest;
+    public Texture2D physicalMapTextureEast;
     public SelectionManager selectionManager;
-    Color[] pixels;
+
+    public Color[] pixelsWest;
+    public Color[] pixelsEast;
 
     void Start()
     {
-        pixels = physicalMapTexture.GetPixels();
+        pixelsWest = physicalMapTextureWest.GetPixels();
+        pixelsEast = physicalMapTextureEast.GetPixels();
+
+
+        
+        
+
+
+
     }
 
     public Vector3Int GetCellFromPosition(Vector3 position)
@@ -22,10 +34,41 @@ public class GridManager : MonoBehaviour
 
     public Color GetColorFromCell(Vector3Int currentCell)
     {
-        Color returnValue = pixels[(currentCell.x+1) + (currentCell.y+1) * physicalMapTexture.width];
+        // Use during construction only
+        Color returnValue;
+        Debug.Log(currentCell);
+        if (currentCell.x < physicalMapTextureWest.width-1)
+        {
+            returnValue = pixelsWest[(currentCell.x + 1) + (currentCell.y + 1) * physicalMapTextureWest.width];
+            Debug.Log("Got color: " + returnValue + " at Western map");
+
+        }
+        else
+        {
+            returnValue = pixelsEast[(currentCell.x + 1 - physicalMapTextureWest.width) + (currentCell.y + 1) * physicalMapTextureEast.width];
+            Debug.Log("Got color: " + returnValue + " at eastern map");
+
+        }
         return returnValue;
     }
+    public Color GetColorFromCell(int x, int y)
+    {
+        // Use during construction only
+        Color returnValue;
+        if (x < physicalMapTextureWest.width)
+        {
+            returnValue = pixelsWest[(x + 1) + (y + 1) * physicalMapTextureWest.width];
+            Debug.Log("Got color: " + returnValue + " at Western map");
 
+        }
+        else
+        {
+            returnValue = pixelsEast[(x + 1 - physicalMapTextureWest.width) + (y + 1) * physicalMapTextureEast.width];
+            Debug.Log("Got color: " + returnValue + " at eastern map");
+
+        }
+        return returnValue;
+    }
     public Color GetColorFromPosition(Vector3 position)
     {
         return GetColorFromCell(GetCellFromPosition(position));
@@ -35,7 +78,7 @@ public class GridManager : MonoBehaviour
     public bool isLand(Vector3 position)
     {
 
-        
+
         if (GetColorFromPosition(position).a != 0)
         {
             return true;
@@ -82,8 +125,8 @@ public class GridManager : MonoBehaviour
         Vector3Int endCell = GetCellFromPosition(endPosition);
         List<Vector3Int> cellsInRange = new List<Vector3Int>();
 
-        int deltaX = startCell.x-endCell.x;
-        int deltaY = startCell.y-endCell.y;
+        int deltaX = startCell.x - endCell.x;
+        int deltaY = startCell.y - endCell.y;
 
         // Debug.Log("Selecting range that is of size: " + deltaX + ", " + deltaY);
         // Debug.Log("start " + startCell);
@@ -93,7 +136,7 @@ public class GridManager : MonoBehaviour
         {
             for (int currentXValue = 0; currentXValue < Mathf.Abs(deltaX); currentXValue++)
             {
-            cellsInRange.Add(new Vector3Int(Mathf.Min(startCell.x,endCell.x) + currentXValue,Mathf.Min(startCell.y,endCell.y) + currentYValue));
+                cellsInRange.Add(new Vector3Int(Mathf.Min(startCell.x, endCell.x) + currentXValue, Mathf.Min(startCell.y, endCell.y) + currentYValue));
             }
         }
 
