@@ -29,12 +29,10 @@ public class DataMap
         if (currentCell.x < dataMapTextureWest.width - 1)
         {
             returnValue = pixelsWest[(currentCell.x + 1) + (currentCell.y + 1) * dataMapTextureWest.width];
-            Debug.Log("Got color: " + returnValue + " at Western map");
         }
         else
         {
             returnValue = pixelsEast[(currentCell.x + 1 - dataMapTextureEast.width) + (currentCell.y + 1) * dataMapTextureEast.width];
-            Debug.Log("Got color: " + returnValue + " at eastern map");
         }
         return returnValue;
     }

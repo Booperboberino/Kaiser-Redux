@@ -42,7 +42,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 currentWorldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if ((selectionStartScreenSpace - new Vector2(Input.mousePosition.x, Input.mousePosition.y)).magnitude > 40)
+            if ((selectionStartScreenSpace - new Vector2(Input.mousePosition.x, Input.mousePosition.y)).magnitude > 5)
             {
                 IsDragging = true;
                 selectionManager.UpdateSelectionBox(selectionStart, currentWorldMousePosition);

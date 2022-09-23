@@ -24,9 +24,6 @@ public class GridManager : MonoBehaviour
 
         // Construct datamaps
         physicalMap = new DataMap(physicalMapTextureWest, physicalMapTextureEast);
-        
-        
-
 
 
     }
@@ -35,7 +32,6 @@ public class GridManager : MonoBehaviour
     public MapTile GetTile(int x, int y)
     {
         // MapTile generation 
-        Debug.Log(physicalMap);
         bool isLand = physicalMap.GetColor(x, y).a != 0;
         return new MapTile(x, y, isLand);
     }
@@ -44,74 +40,6 @@ public class GridManager : MonoBehaviour
     public Vector3Int GetCellFromPosition(Vector3 position)
     {
         return worldTilemap.WorldToCell(position);
-    }
-
-    public Color GetColorFromCell(Vector3Int currentCell)
-    {
-        // Use during construction only
-        Color returnValue;
-        Debug.Log(currentCell);
-        if (currentCell.x < physicalMapTextureWest.width-1)
-        {
-            returnValue = pixelsWest[(currentCell.x + 1) + (currentCell.y + 1) * physicalMapTextureWest.width];
-            Debug.Log("Got color: " + returnValue + " at Western map");
-        }
-        else
-        {
-            returnValue = pixelsEast[(currentCell.x + 1 - physicalMapTextureWest.width) + (currentCell.y + 1) * physicalMapTextureEast.width];
-            Debug.Log("Got color: " + returnValue + " at eastern map");
-        }
-        return returnValue;
-    }
-    public Color GetColorFromCell(int x, int y)
-    {
-        // Use during construction only
-        Color returnValue;
-        if (x < physicalMapTextureWest.width)
-        {
-            returnValue = pixelsWest[(x + 1) + (y + 1) * physicalMapTextureWest.width];
-            Debug.Log("Got color: " + returnValue + " at Western map");
-
-        }
-        else
-        {
-            returnValue = pixelsEast[(x + 1 - physicalMapTextureWest.width) + (y + 1) * physicalMapTextureEast.width];
-            Debug.Log("Got color: " + returnValue + " at eastern map");
-
-        }
-        return returnValue;
-    }
-    public Color GetColorFromPosition(Vector3 position)
-    {
-        return GetColorFromCell(GetCellFromPosition(position));
-    }
-
-    // TODO: remove
-    public bool isLand(Vector3 position)
-    {
-
-
-        if (GetColorFromPosition(position).a != 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-
-    public bool isLand(Vector3Int position)
-    {
-        if (GetColorFromCell(position).a != 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     public void CreateTile(Vector3Int position, Tile tile, Tilemap tilemap)
@@ -133,11 +61,12 @@ public class GridManager : MonoBehaviour
         worldTilemap.SetTile(position, null);
     }
 
-    public List<Vector3Int> ReturnTilesInRange(Vector3 startPosition, Vector3 endPosition)
+    public List<MapTile> ReturnTilesInRange(Vector3 startPosition, Vector3 endPosition)
     {
         Vector3Int startCell = GetCellFromPosition(startPosition);
         Vector3Int endCell = GetCellFromPosition(endPosition);
         List<Vector3Int> cellsInRange = new List<Vector3Int>();
+        List<MapTile> returnValue = new List<MapTile>();
 
         int deltaX = startCell.x - endCell.x;
         int deltaY = startCell.y - endCell.y;
@@ -153,8 +82,12 @@ public class GridManager : MonoBehaviour
                 cellsInRange.Add(new Vector3Int(Mathf.Min(startCell.x, endCell.x) + currentXValue, Mathf.Min(startCell.y, endCell.y) + currentYValue));
             }
         }
+        foreach(Vector3Int cell in cellsInRange)
+        {
+            returnValue.Add(GetTile(cell.x, cell.y));
+        }
 
-        return cellsInRange;
+        return returnValue;
 
     }
 
