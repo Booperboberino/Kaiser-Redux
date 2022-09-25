@@ -8,6 +8,8 @@ public class DataMap
     public Texture2D dataMapTextureWest;
     public Texture2D dataMapTextureEast;
 
+
+
     public Color[] pixelsWest;
     public Color[] pixelsEast;
 
@@ -53,5 +55,22 @@ public class DataMap
             return returnValue;
         }
     }
-
+    public void SetPixel(int x, int y, Color writeColor)
+    {
+        if (x < dataMapTextureWest.width - 1)
+        {
+            Debug.Log("Writing color " + writeColor + " to pixel " + x + ", " + y + " in the west texture.");
+            dataMapTextureWest.SetPixel(x+1, y+1, writeColor);
+        }
+        else
+        {
+            Debug.Log("Writing color " + writeColor + " to pixel " + x + ", " + y + " in the east texture.");
+            dataMapTextureWest.SetPixel(x+1, y-dataMapTextureWest.width+1, writeColor);
+        }
+    }
+    public void Apply()
+    {
+        dataMapTextureWest.Apply();
+        dataMapTextureEast.Apply();
+    }
 }

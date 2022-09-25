@@ -9,6 +9,7 @@ public class InputHandler : MonoBehaviour
     public SelectionManager selectionManager;
     public GridManager gridManager;
     public CountryManager countryManager;
+    public UIManager uiManager;
 
     [Header("GameObjects:")]
     public GameObject debugStick;
@@ -70,6 +71,9 @@ public class InputHandler : MonoBehaviour
             // Get MapTile from clicked cell 
             MapTile clickedTile = gridManager.GetTile(cell.x, cell.y);
 
+            Debug.Log(gridManager.countryDataMap.GetColor(cell.x, cell.y));
+
+
             // If we ARE dragging:
             if (IsDragging)
             {
@@ -77,7 +81,7 @@ public class InputHandler : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
                     selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
-
+                
                 }
                 else if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -90,10 +94,14 @@ public class InputHandler : MonoBehaviour
                     }
                 }
                 // If we holding NOTHING
+                else
                 {
                     selectionManager.ClearSelection();
                     selectionManager.SelectTilesInSelectionBox(selectionStart, currentWorldMousePosition);
+                    
                 }
+                // Remove UI selection box
+                uiManager.clearSelectionBox();
                 IsDragging = false;
 
             }

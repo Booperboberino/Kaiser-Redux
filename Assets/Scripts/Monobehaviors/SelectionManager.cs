@@ -103,9 +103,7 @@ public class SelectionManager : MonoBehaviour
     public void SelectTilesInSelectionBox(Vector3 startPosition, Vector3 endPosition)
     {
         AddToSelection(gridManager.ReturnTilesInRange(startPosition,endPosition));
-        
-        // Remove UI selection box
-        uiManager.clearSelectionBox();
+
     }
     
 

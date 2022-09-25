@@ -11,6 +11,8 @@ public class GridManager : MonoBehaviour
     public Texture2D physicalMapTexture;
     public Texture2D physicalMapTextureWest;
     public Texture2D physicalMapTextureEast;
+    public Texture2D countriesMapWest;
+    public Texture2D countriesMapEast;
 
 
     [Header("Managers:")]
@@ -24,14 +26,18 @@ public class GridManager : MonoBehaviour
 
     public Tile countryTile;
 
-    public DataMap physicalMap;
+    public DataMap physicalDataMap;
+    public DataMap countryDataMap;
 
     void Start()
     {
 
 
         // Construct datamaps
-        physicalMap = new DataMap(physicalMapTextureWest, physicalMapTextureEast);
+        physicalDataMap = new DataMap(physicalMapTextureWest, physicalMapTextureEast);
+        countryDataMap = new DataMap(countriesMapWest, countriesMapEast);
+        Debug.Log(countriesMapEast.height);
+        Debug.Log(physicalMapTextureEast.height);
 
 
     }
@@ -40,11 +46,16 @@ public class GridManager : MonoBehaviour
     public MapTile GetTile(int x, int y)
     {
         // MapTile generation, please keep chronological 
-        bool isLand = physicalMap.GetColor(x, y).a != 0;
+        bool isLand = physicalDataMap.GetColor(x, y).a != 0;
         Country ownedCountry = null;
 
         // return value
         return new MapTile(x, y, isLand, ownedCountry);
+    }
+
+    public void WriteToFile(int x, int y, Color writeColor)
+    {
+        countryDataMap.SetPixel(x,y,writeColor);
     }
 
 
@@ -109,6 +120,14 @@ public class GridManager : MonoBehaviour
 
         return returnValue;
 
+    }
+    public void applyDataMapTexture(DataMap dataMap)
+    {
+        dataMap.Apply();
+    }
+    public void applyDataMapTexture()
+    {
+        countryDataMap.Apply();
     }
 
 }
