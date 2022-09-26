@@ -3,3 +3,6 @@
 /[Ll]ibrary/*
 Assets/Resources/Materials/Eastern World Physical Map.png
 *.tif
+Assets/Resources/Images/Full Working Map.psd
+Assets/Resources/Images/Full Working Map.psd.meta
+*.psd

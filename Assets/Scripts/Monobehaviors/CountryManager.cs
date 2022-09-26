@@ -45,7 +45,6 @@ public class CountryManager : MonoBehaviour
     public void AddTileToCountryDebug(MapTile tile)
     {
         // if the tile isn't already tracked
-        Debug.Log(!countries["Britain"].ownedTiles.Contains(tile));
         if (!countries["Britain"].ownedTiles.Contains(tile))
         {
             countries["Britain"].ownedTiles.Add(tile);
@@ -62,7 +61,8 @@ public class CountryManager : MonoBehaviour
                 // gridManager.CreateCountryTile(new Vector3Int(tile.x, tile.y), country.Value.mapColor);
             }
         }
-        gridManager.applyDataMapTexture();
+        
+        gridManager.applyDataMapTexture(gridManager.countryDataMap);
     }
 
     public void GenerateCountriesFromMap()
