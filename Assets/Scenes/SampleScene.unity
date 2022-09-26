@@ -490,8 +490,13 @@ MonoBehaviour:
   physicalMapTexture: {fileID: 2800000, guid: 1252d38c0ce76194181ed7a26795adcd, type: 3}
   physicalMapTextureWest: {fileID: 2800000, guid: edb53c5507c2b1e43ab537a0b0d263cd, type: 3}
   physicalMapTextureEast: {fileID: 2800000, guid: 2c13591f8e136f64aa591a5677d58263, type: 3}
+  countriesMap: {fileID: 2800000, guid: 0b465b44c8bfcf74a9981240ceaf1ad9, type: 3}
   countriesMapWest: {fileID: 2800000, guid: 9a2bff2fd697cdf4cb8d07fece6a2aff, type: 3}
   countriesMapEast: {fileID: 2800000, guid: aae16ac6681c2fd4db10e4d53a8170c5, type: 3}
+  physicalMapTextureWestObject: {fileID: 0}
+  physicalMapTextureEastObject: {fileID: 0}
+  countriesMapWestObject: {fileID: 8336648}
+  countriesMapEastObject: {fileID: 958018547}
   selectionManager: {fileID: 1793739938}
   worldTilemap: {fileID: 1252807236}
   countryTilemap: {fileID: 1492966454}

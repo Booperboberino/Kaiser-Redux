@@ -11,8 +11,17 @@ public class GridManager : MonoBehaviour
     public Texture2D physicalMapTexture;
     public Texture2D physicalMapTextureWest;
     public Texture2D physicalMapTextureEast;
+    public Texture2D countriesMap;
     public Texture2D countriesMapWest;
     public Texture2D countriesMapEast;
+
+
+    [Header("Map Objects")]
+    public GameObject physicalMapTextureWestObject;
+    public GameObject physicalMapTextureEastObject;
+    public GameObject countriesMapWestObject;
+    public GameObject countriesMapEastObject;
+    
 
 
     [Header("Managers:")]
@@ -34,8 +43,8 @@ public class GridManager : MonoBehaviour
 
 
         // Construct datamaps
-        physicalDataMap = new DataMap(physicalMapTextureWest, physicalMapTextureEast);
-        countryDataMap = new DataMap(countriesMapWest, countriesMapEast);
+        // physicalDataMap = new DataMap(physicalMapTextureWestObject, physicalMapTextureEastObject, "physicalMap");
+        countryDataMap = new DataMap(countriesMapWestObject, countriesMapEastObject, countriesMap, "countryMap");
         Debug.Log(countriesMapEast.height);
         Debug.Log(physicalMapTextureEast.height);
 
