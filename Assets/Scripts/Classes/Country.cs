@@ -9,7 +9,6 @@ public class Country
     public Color dataMapColor;
     public List<MapTile> ownedTiles;
     public List<MapTile> claimedTiles;
-    
 
     public Country(string countryName, Color mapColor, Color dataMapColor)
     {
@@ -19,4 +18,5 @@ public class Country
         ownedTiles = new List<MapTile>();
         claimedTiles = new List<MapTile>();
     }
+
 }

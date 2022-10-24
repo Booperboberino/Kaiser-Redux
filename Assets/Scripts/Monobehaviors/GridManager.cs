@@ -24,6 +24,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Managers:")]
     public SelectionManager selectionManager;
+    public CountryManager countryManager;
 
     [Header("Tilemaps:")]
     public Tilemap worldTilemap;
@@ -41,8 +42,8 @@ public class GridManager : MonoBehaviour
 
 
         // Construct datamaps
-        physicalDataMap = new DataMap(physicalMapObject, "physicalMap");
-        countryDataMap = new DataMap(countriesMapObject, "countryMap");
+        physicalDataMap = new DataMap(physicalMapObject, "physicalMap", true);
+        countryDataMap = new DataMap(countriesMapObject, "countryMap", false);
 
 
     }
@@ -52,11 +53,19 @@ public class GridManager : MonoBehaviour
     {
         // MapTile generation, please keep chronological 
         bool isLand = physicalDataMap.GetColor(x, y).a != 0;
-        Country ownedCountry = null;
+
+        Debug.Log("Looking at position" + x + ", " + y);
+        Country ownedCountry = countryManager.getCountryFromColor(countryDataMap.GetColor(x,y)); // TODO: fix
 
         // return value
         return new MapTile(x, y, isLand, ownedCountry);
     }
+    public MapTile GetTile(Vector3 position)
+    {
+        Vector3Int cell = GetCellFromPosition(position);
+        return GetTile(cell.x, cell.y);
+    }
+   
 
     public void WriteToFile(int x, int y, Color writeColor)
     {
