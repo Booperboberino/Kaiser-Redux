@@ -19,7 +19,6 @@ public class InputHandler : MonoBehaviour
     private Vector3 selectionStart;
     private Vector2 selectionStartScreenSpace;
     private bool IsDragging = false;
-    private bool clickingOnUI = false;
 
 
     // Start is called before the first frame update
@@ -44,7 +43,7 @@ public class InputHandler : MonoBehaviour
             // if we ARE clicking on UI
             if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Clicked on UI");
+
             }
             // if we ARE NOT clicking on UI
             else
@@ -80,7 +79,6 @@ public class InputHandler : MonoBehaviour
             // If we ARE clicking on UI
             if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Clicked on UI");
             }
 
             // If we are NOT clicking on UI
