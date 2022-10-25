@@ -18,24 +18,27 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         // debug setup
-        playerCountry = countryManager.countries["England"];
-        
+        playerCountry = countryManager.countries["Britain"];
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetPlayerCountry(Country country)
     {
-        playerCountry = country;
-        Debug.Log("Set player country to " + country.countryName);
-        uiManager.SetPlayerCountry(country.countryName);
+        if (country != null)
+        {
+            playerCountry = country;
+            Debug.Log("Set player country to " + country.countryName);
+            uiManager.SetPlayerCountry(country.countryName);
+        }
     }
 
-    
+
 
 }
