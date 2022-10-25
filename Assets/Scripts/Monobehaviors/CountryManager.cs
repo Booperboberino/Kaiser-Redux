@@ -66,6 +66,10 @@ public class CountryManager : MonoBehaviour
         // if the country owning the tile isn't already the country being added
         if (gridManager.GetTile(tile.x, tile.y).ownedCountry != playerManager.playerCountry)
         {
+            if(gridManager.GetTile(tile.x, tile.y).ownedCountry != null)
+            {
+                gridManager.GetTile(tile.x, tile.y).ownedCountry.ownedTiles.Remove(tile);
+            }
             playerManager.playerCountry.ownedTiles.Add(tile);
         }
     }
@@ -95,14 +99,14 @@ public class CountryManager : MonoBehaviour
     {
         foreach (KeyValuePair<string, Country> country in countries)
         {
-            Debug.Log("Looking at country " + country.Key + ", with colour" + country.Value.mapColor + ", compared to color " + color);
+            // Debug.Log("Looking at country " + country.Key + ", with colour" + country.Value.mapColor + ", compared to color " + color);
             if (country.Value.dataMapColor == color)
             {
-                Debug.Log("They're the same!");
+                // Debug.Log("They're the same!");
                 return country.Value;
             }
         }
-        Debug.Log("Didn't find anything, returning null.");
+        // Debug.Log("Didn't find anything, returning null.");
         return null;
     }
     
